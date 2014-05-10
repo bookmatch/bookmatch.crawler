@@ -2,6 +2,10 @@ from setuptools import setup
 
 
 requires = [
+    'requests',
+    'feedparser',
+    'lxml',
+    'cssselect',
 ]
 
 
