@@ -1,0 +1,7 @@
+-r requirements.txt
+py==1.4.20
+pytest==2.5.2
+six==1.6.1
+testfixtures==3.0.2
+tox==1.7.1
+virtualenv==1.11.5
