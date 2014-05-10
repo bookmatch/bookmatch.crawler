@@ -8,7 +8,7 @@ def get_MUT():
     return m
 
 
-class TestAmazonCrawler(object):
+class TestAmazonRssCrawler(object):
 
     def get_class(self):
         return get_MUT().AmazonRssCrawler

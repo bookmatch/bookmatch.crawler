@@ -7,6 +7,7 @@ import datetime
 from bookmatch.crawler.compat import urlsplit
 
 import feedparser
+import lxml.html
 
 from bookmatch.crawler.util import normalize_isbn13
 
@@ -33,7 +34,11 @@ class AmazonRssCrawler(object):
                 continue
             title = re.sub(r'#\d+:\s*', '', entry['title'])
             summary = lxml.html.fromstring(entry['summary'])
-            author = summary.cssselect('span.riRssContributor')[0].text_content()
+            nodes = summary.cssselect('span.riRssContributor')
+            if len(nodes) == 1:
+                author = nodes[0].text_content()
+            else:
+                author = None
             # relrease_date = summary.cssselect('span.riRssReleaseDate')[0].text_content()
             # published = datetime.datetime(*entry['published_parsed'][:6])
             yield {
