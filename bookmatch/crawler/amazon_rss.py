@@ -4,7 +4,7 @@ from __future__ import print_function
 
 import re
 import datetime
-from urlparse import urlsplit
+from bookmatch.crawler.compat import urlsplit
 
 import feedparser
 

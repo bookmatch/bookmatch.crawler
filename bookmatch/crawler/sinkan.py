@@ -4,8 +4,7 @@ from __future__ import print_function
 
 import datetime
 from time import sleep
-from urllib import urlencode
-from urlparse import parse_qsl, urlsplit
+from bookmatch.crawler.compat import parse_qsl, urlsplit, urlencode
 
 import lxml.html
 import requests
