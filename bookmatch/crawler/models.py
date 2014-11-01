@@ -18,9 +18,9 @@ class Content(Base):
     query = DBSession.query_property()
 
     id = Column(sa.Integer, primary_key=True)
-    isbn = Column(sa.String(), nullable=False)
-    title = Column(sa.Unicode(), nullable=False, default=u"")
-    author = Column(sa.Unicode(), nullable=False, default=u"")
-    # body = Column(sa.Unicode(), nullable=False, default=u"")
+    isbn = Column(sa.String(16), nullable=False)
+    title = Column(sa.UnicodeText(), nullable=False, default=u"")
+    author = Column(sa.UnicodeText(), nullable=False, default=u"")
+    # body = Column(sa.UnicodeText(), nullable=False, default=u"")
     source = Column(sa.String(16), nullable=False)
     publish_date = Column(sa.Date)
