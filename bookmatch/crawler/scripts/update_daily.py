@@ -41,7 +41,7 @@ def main(config, date):
                 continue
             content.title = title
             content.author = author
-            content.publish_date = datetime.datetime.now()
+            content.update_at = datetime.datetime.now()
             modified += 1
             print(content.isbn, content.title.encode('utf-8'))
             n += 1

@@ -24,3 +24,4 @@ class Content(Base):
     # body = Column(sa.UnicodeText(), nullable=False, default=u"")
     source = Column(sa.String(16), nullable=False)
     publish_date = Column(sa.Date)
+    update_at = Column(sa.DateTime)
