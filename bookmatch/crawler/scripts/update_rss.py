@@ -27,7 +27,6 @@ def main(config):
         logger.info("crawling %s...", name)
         crawler = crawler_cls()
         added = modified = 0
-        n = 0
         for d in crawler.crawl():
             content = Content.query \
                 .filter_by(isbn=d['isbn'], source=name) \
@@ -48,10 +47,6 @@ def main(config):
             content.publish_date = datetime.datetime.now()
             modified += 1
             print(content.isbn, content.title.encode('utf-8'))
-            n += 1
-            if n >= 100:
-                DBSession.commit()
-                n = 0
         DBSession.commit()
         logger.info("added: %d, updated: %d", added, modified - added)
 
