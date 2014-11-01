@@ -31,7 +31,7 @@ def main(config):
             content = Content.query \
                 .filter_by(isbn=d['isbn'], source=name) \
                 .first()
-            if content is None:
+            if content is not None:
                 # don't update
                 continue
             else:
