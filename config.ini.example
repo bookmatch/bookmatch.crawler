@@ -1,0 +1,3 @@
+[bookmatch.crawler]
+
+sqlalchemy.url = sqlite:///bookmatch.crawler.db
