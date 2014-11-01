@@ -13,7 +13,7 @@ from bookmatch.crawler.sinkan import SinkanCrawler
 logger = None
 
 crawler_classes = {
-    'sinkan': SinkanCrawler,
+    'sinkan_web': SinkanCrawler,
 }
 
 
