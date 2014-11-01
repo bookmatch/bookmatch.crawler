@@ -36,11 +36,13 @@ def main(config, date):
                 added += 1
             title = d['title']
             author = d.get('author') or u""
-            if title != content.title or author != content.author:
-                content.title = title
-                content.author = author
-                modified += 1
-                print(content.isbn, content.title.encode('utf-8'))
+            if title == content.title and author == content.author:
+                continue
+            content.title = title
+            content.author = author
+            content.publish_date = datetime.datetime.now()
+            modified += 1
+            print(content.isbn, content.title.encode('utf-8'))
         DBSession.commit()
         logger.info("added: %d, updated: %d", added, modified - added)
 
