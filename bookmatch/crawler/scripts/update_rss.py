@@ -21,32 +21,41 @@ crawler_classes = {
 }
 
 
+def run_crawler(crawler):
+    added = modified = 0
+    for d in crawler.crawl():
+        content = Content.query \
+            .filter_by(isbn=d['isbn'], source=name) \
+            .first()
+        if content is not None:
+            # don't update
+            continue
+        else:
+            content = Content(isbn=d['isbn'], source=name)
+            DBSession.add(content)
+            added += 1
+        title = d['title']
+        author = d.get('author') or u""
+        if title == content.title and author == content.author:
+            continue
+        content.title = title
+        content.author = author
+        content.update_at = datetime.datetime.now()
+        modified += 1
+        print(content.isbn, content.title.encode('utf-8'))
+    return added, modified
+
+
 def main(config):
     crawlers = []
     for name, crawler_cls in crawler_classes.items():
         logger.info("crawling %s...", name)
         crawler = crawler_cls()
-        added = modified = 0
-        for d in crawler.crawl():
-            content = Content.query \
-                .filter_by(isbn=d['isbn'], source=name) \
-                .first()
-            if content is not None:
-                # don't update
-                continue
-            else:
-                content = Content(isbn=d['isbn'], source=name)
-                DBSession.add(content)
-                added += 1
-            title = d['title']
-            author = d.get('author') or u""
-            if title == content.title and author == content.author:
-                continue
-            content.title = title
-            content.author = author
-            content.update_at = datetime.datetime.now()
-            modified += 1
-            print(content.isbn, content.title.encode('utf-8'))
+        try:
+            added, modified = run_crawler(crawler)
+        except Exception, e:
+            logger.error(e)
+            continue
         DBSession.commit()
         logger.info("added: %d, updated: %d", added, modified - added)
 
