@@ -21,7 +21,7 @@ crawler_classes = {
 }
 
 
-def run_crawler(crawler):
+def run_crawler(crawler, name):
     added = modified = 0
     for d in crawler.crawl():
         content = Content.query \
@@ -52,7 +52,7 @@ def main(config):
         logger.info("crawling %s...", name)
         crawler = crawler_cls()
         try:
-            added, modified = run_crawler(crawler)
+            added, modified = run_crawler(crawler, name)
         except Exception, e:
             logger.error(e)
             continue
