@@ -47,7 +47,6 @@ def run_crawler(crawler, name):
 
 
 def main(config):
-    crawlers = []
     for name, crawler_cls in crawler_classes.items():
         logger.info("crawling %s...", name)
         crawler = crawler_cls()
