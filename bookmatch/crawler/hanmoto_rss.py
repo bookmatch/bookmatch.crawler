@@ -3,6 +3,7 @@
 from __future__ import print_function
 
 import re
+import urllib
 
 import feedparser
 
@@ -11,12 +12,12 @@ __all__ = ['HanmotoRssCrawler']
 
 class HanmotoRssCrawler(object):
     def crawl(self):
-        url = "http://www.hanmoto.com/jpokinkan/rss/uptodate.xml"
+        url = "http://www.hanmoto.com/ci/bd/search/sdate/today/edate/today/hdt/{0}/vw/rss20".format(urllib.quote(u"新しい本".encode('utf-8')))
 
         data = feedparser.parse(url)
         for entry in data['entries']:
             link = entry['link']
-            m = re.match(r'^.*/(\d{13})\.html$', link)
+            m = re.match(r'^.*/isbn/(\d{13})$', link)
             if m is None:
                 continue
             isbn = m.group(1)
