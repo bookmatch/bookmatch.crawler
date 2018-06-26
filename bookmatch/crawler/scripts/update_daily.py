@@ -53,8 +53,8 @@ def main(config, date):
         crawler = crawler_cls(date.year, date.month, date.day, wait=5.0)
         try:
             added, modified = run_crawler(crawler, name)
-        except Exception, e:
-            logger.error(e)
+        except Exception:
+            logger.exception("Crawl error")
             continue
         DBSession.commit()
         logger.info("added: %d, updated: %d", added, modified - added)
