@@ -51,11 +51,15 @@ class SinkanCrawler(object):
                 a = table.cssselect('.i_info .i_title a')[0]
                 title = a.text
                 href = a.attrib.get('href')
-                asin = dict(parse_qsl(urlsplit(href)[3]))['asin']
-                try:
-                    isbn = normalize_isbn13(asin)
-                except ValueError:
-                    continue
+                d = dict(parse_qsl(urlsplit(href)[3]))
+                if 'ean' in d:
+                    isbn = d['ean']
+                else:
+                    asin = d['asin']
+                    try:
+                        isbn = normalize_isbn13(asin)
+                    except ValueError:
+                        continue
                 author = table.cssselect('.i_author')[0].text
                 yield {
                     'isbn': isbn,
