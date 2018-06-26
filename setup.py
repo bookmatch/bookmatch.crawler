@@ -6,6 +6,7 @@ requires = [
     'feedparser',
     'lxml',
     'cssselect',
+    'sqlalchemy',
 ]
 
 
